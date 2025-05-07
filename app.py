@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, redirect
 
@@ -38,9 +38,6 @@ def get_users():
     users = User.query.all()
     return jsonify([{'id': user.id, 'name': user.name} for user in users])
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -50,3 +47,7 @@ def index():
         return redirect('/')
     users = User.query.all()
     return render_template('index.html', users=users)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
